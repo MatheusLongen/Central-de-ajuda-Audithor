@@ -1,1 +1,1576 @@
-<div> pagina de ajuda</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Ajuda - Audithor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --gray-light: #f3f4f6;
+            --gray-dark: #374151;
+            --text-color: #1f2937;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f9fafb;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .sidebar h3 {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: var(--gray-light);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            padding-left: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.1rem;
+        }
+
+        .info-card {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+
+        .warning-card {
+            background-color: #fef3c7;
+            border-left: 4px solid var(--warning-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .danger-card {
+            background-color: #fee2e2;
+            border-left: 4px solid var(--danger-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .success-card {
+            background-color: #d1fae5;
+            border-left: 4px solid var(--success-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .step-list {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .step-list li {
+            margin-bottom: 1rem;
+            list-style-type: none;
+            counter-increment: step-counter;
+            position: relative;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -2.5rem;
+            top: -0.25rem;
+            width: 2rem;
+            height: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .required-fields {
+            background-color: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+        }
+
+        .required-fields h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .field-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .field-item:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 1.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .action-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .action-item {
+            background-color: var(--gray-light);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .action-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .action-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-item p {
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+        }
+
+        .icon {
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .fields-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        footer {
+            background-color: var(--gray-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">📚 Central de Ajuda Audithor</div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar ajuda...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h3>Módulos</h3>
+            <ul class="sidebar-nav">
+                <li><a class="nav-link active" data-section="home">🏠 Início</a></li>
+                <li><a class="nav-link" data-section="cadastro-empresa">🏢 Cadastro de Empresa</a></li>
+                <li><a class="nav-link" data-section="cadastro-usuario">👥 Cadastro de Usuários</a></li>
+                <li><a class="nav-link" data-section="permissoes">🔐 Permissões</a></li>
+                <li><a class="nav-link" data-section="documentos">📄 Documentos</a></li>
+                <li><a class="nav-link" data-section="checklists">☑️ Checklists</a></li>
+                <li><a class="nav-link" data-section="extras">⚙️ Extras</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <h1>🎯 Bem-vindo à Central de Ajuda Audithor</h1>
+                <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: #6b7280;">
+                    Aqui você encontrará todas as informações necessárias para utilizar o sistema Audithor de forma correta e eficiente. 
+                    Escolha um módulo no menu lateral para começar!
+                </p>
+                
+                <div class="info-card">
+                    <strong>ℹ️ Informação Geral:</strong><br>
+                    O sistema Audithor é uma plataforma completa de gestão que funciona de forma simples e direta. 
+                    No momento, temos as telas de cadastro, dashboards e documentos. Este guia explicará passo a passo 
+                    como utilizar o sistema de forma correta para que não haja dúvidas ou problemas.
+                </div>
+
+                <h2>Atualizações Futuras</h2>
+                <p>
+                    Atualizações futuras irão trazer novas telas e novos ajustes ao sistema. 
+                    Fique atento às notificações para conhecer as novidades!
+                </p>
+
+                <h2>Módulos Disponíveis</h2>
+                <div class="action-list">
+                    <div class="action-item" onclick="showSection('cadastro-empresa')">
+                        <h4><span class="icon">🏢</span> Cadastro de Empresa</h4>
+                        <p>Gerencie todas as empresas cadastradas no sistema</p>
+                    </div>
+                    <div class="action-item" onclick="showSection('cadastro-usuario')">
+                        <h4><span class="icon">👥</span> Cadastro de Usuários</h4>
+                        <p>Crie e administre usuários da plataforma</p>
+                    </div>
+                    <div class="action-item" onclick="showSection('permissoes')">
+                        <h4><span class="icon">🔐</span> Permissões</h4>
+                        <p>Configure permissões específicas para usuários</p>
+                    </div>
+                    <div class="action-item" onclick="showSection('documentos')">
+                        <h4><span class="icon">📄</span> Documentos</h4>
+                        <p>Armazene e gerencie documentos importantes</p>
+                    </div>
+                    <div class="action-item" onclick="showSection('checklists')">
+                        <h4><span class="icon">☑️</span> Checklists</h4>
+                        <p>Crie e acompanhe tarefas do dia a dia</p>
+                    </div>
+                    <div class="action-item" onclick="showSection('extras')">
+                        <h4><span class="icon">⚙️</span> Extras</h4>
+                        <p>Recursos adicionais e dicas úteis</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cadastro de Empresa Section -->
+            <section id="cadastro-empresa" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Cadastro de Empresa
+                </div>
+
+                <h1>🏢 Cadastro de Empresa</h1>
+
+                <h2>Para que serve?</h2>
+                <div class="info-card">
+                    A tela de cadastro de empresa é onde os usuários Master irão fazer o controle de empresas 
+                    e ver quantas empresas têm no sistema. Essa tela não pode ser acessada por ninguém além dos 4 usuários 
+                    Master do sistema. Ela só estará visível e disponível aos 4 usuários que comandam o sistema.
+                </div>
+
+                <h3>Funcionalidades Disponíveis</h3>
+                <p>Nela é possível:</p>
+                <ul class="step-list" style="list-style-type: disc; margin-left: 2rem;">
+                    <li>✅ Criar empresas</li>
+                    <li>✅ Pesquisar empresas</li>
+                    <li>✅ Editar dados de empresas</li>
+                    <li>✅ Excluir empresas</li>
+                    <li>✅ Visualizar os dados de uma empresa</li>
+                </ul>
+
+                <h2>Onde ela fica?</h2>
+                <div class="success-card">
+                    A Tela de Empresas fica na aba de <strong>Cadastro</strong> do menu lateral.
+                </div>
+
+                <h2>O que tem na tela de cadastro?</h2>
+                <div class="info-card">
+                    A tela de cadastro de empresas possui:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔍 Filtros na parte superior</li>
+                        <li>➕ Botão de cadastro</li>
+                        <li>📊 Grid com dados das empresas</li>
+                        <li>⚡ Ações: visualizar, editar e excluir</li>
+                    </ul>
+                </div>
+
+                <h2>Como cadastrar uma empresa</h2>
+                <ol class="step-list">
+                    <li>Clique em <strong>Cadastros</strong> (no menu lateral)</li>
+                    <li>Clique no botão <strong>"Nova Empresa"</strong></li>
+                    <li>Preencha os campos obrigatórios</li>
+                    <li>Mude de etapa nos botões disponíveis</li>
+                    <li>Ao chegar na última etapa, clique no botão <strong>"Salvar Cadastro"</strong></li>
+                </ol>
+
+                <h2>Campos obrigatórios</h2>
+                
+                <div class="required-fields">
+                    <h4>📋 Etapa 1: Dados da Empresa</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Razão Social</div>
+                        <div class="field-item">CNPJ</div>
+                        <div class="field-item">Inscrição Estadual</div>
+                        <div class="field-item">Inscrição Municipal</div>
+                        <div class="field-item">Telefone</div>
+                        <div class="field-item">Qtd. Funcionários</div>
+                        <div class="field-item">ID ABVTEX</div>
+                        <div class="field-item">Tipo</div>
+                        <div class="field-item">Atividades</div>
+                    </div>
+                </div>
+
+                <div class="required-fields">
+                    <h4>📍 Etapa 2: Endereço</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">CEP</div>
+                        <div class="field-item">Rua</div>
+                        <div class="field-item">Número</div>
+                        <div class="field-item">Bairro</div>
+                        <div class="field-item">Cidade</div>
+                        <div class="field-item">Estado</div>
+                    </div>
+                </div>
+
+                <div class="required-fields">
+                    <h4>👤 Etapa 3: Representante</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Nome</div>
+                        <div class="field-item">Cargo</div>
+                        <div class="field-item">Celular</div>
+                        <div class="field-item">Email</div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <strong>💡 Dica:</strong> Campos além desses são OPCIONAIS, porém podem ser preenchidos também.
+                </div>
+
+                <h2>Visualizar dados da empresa</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">👁️</span> Botão Visualizar</h4>
+                        <p>Clique no botão com símbolo de olho (cinza) no canto direito do grid. 
+                        Os campos ficarão desabilitados para edição.</p>
+                    </div>
+                </div>
+
+                <h2>Editar dados da empresa</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">✏️</span> Botão Editar</h4>
+                        <p>Clique no botão azul com lápis e papel no grid. Nessa tela você pode 
+                        ver e editar os dados da empresa conforme quiser.</p>
+                    </div>
+                </div>
+
+                <h2>Excluir dados da empresa</h2>
+                <div class="danger-card">
+                    <strong>⚠️ ATENÇÃO!</strong><br>
+                    Para excluir os dados de uma empresa, clique no botão em vermelho com lixeira. 
+                    Ao clicar, uma tela pedirá confirmação. <br><br>
+                    <strong style="color: #991b1b;">CUIDADO:</strong> Se uma empresa for excluída, TODOS os funcionários 
+                    e dados sobre aquela empresa serão deletados para sempre. Tome muito cuidado ao fazer essa ação!
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('cadastro-usuario')">
+                        Próximo: Cadastro de Usuários →
+                    </button>
+                </div>
+            </section>
+
+            <!-- Placeholder for other sections -->
+            <section id="cadastro-usuario" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Cadastro de Usuários
+                </div>
+
+                <h1>👥 Cadastro de Usuários</h1>
+
+                <h2>Para que serve?</h2>
+                <div class="info-card">
+                    Essa tela de usuários é onde os administradores da empresa podem cadastrar os usuários. 
+                    Nela podem ser vistas todos os usuários da empresa, seus dados e permissões.
+                </div>
+
+                <h3>Importante</h3>
+                <div class="warning-card">
+                    <strong>📌 Nota Importante:</strong> Quando vocês (usuários master) venderem o sistema para uma empresa, 
+                    vocês criam um cadastro da empresa e criam apenas 1 usuário administrador para eles acessarem. 
+                    Depois disso, esse usuário administrador cria os usuários dos colaboradores.
+                </div>
+
+                <h2>Onde ela fica?</h2>
+                <div class="success-card">
+                    A Tela de Usuários fica na aba de <strong>Cadastro</strong> do menu lateral.
+                </div>
+
+                <h2>O que tem na tela de cadastro?</h2>
+                <div class="info-card">
+                    A tela de cadastro de usuários possui:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔍 Filtros na parte superior</li>
+                        <li>➕ Botão de cadastro</li>
+                        <li>📊 Grid com dados dos usuários</li>
+                        <li>⚡ Ações: visualizar, editar e excluir</li>
+                    </ul>
+                </div>
+
+                <h2>Como cadastrar um novo usuário</h2>
+                <ol class="step-list">
+                    <li>Clique em <strong>Cadastros</strong> (no menu lateral)</li>
+                    <li>Clique no botão <strong>"Novo Usuário"</strong></li>
+                    <li>Preencha os campos obrigatórios em cada etapa</li>
+                    <li>Mude de etapa nos botões disponíveis</li>
+                    <li>Ao chegar na última etapa, clique no botão <strong>"Salvar Cadastro"</strong></li>
+                </ol>
+
+                <h2>Campos obrigatórios</h2>
+                
+                <div class="required-fields">
+                    <h4>📋 Etapa 1: Dados Pessoais</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Nome Completo</div>
+                        <div class="field-item">CPF</div>
+                        <div class="field-item">Celular</div>
+                        <div class="field-item">Data de Nascimento</div>
+                    </div>
+                </div>
+
+                <div class="required-fields">
+                    <h4>📍 Etapa 2: Endereço</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">CEP</div>
+                        <div class="field-item">Rua</div>
+                        <div class="field-item">Número</div>
+                        <div class="field-item">Bairro</div>
+                        <div class="field-item">Cidade</div>
+                        <div class="field-item">Estado</div>
+                    </div>
+                </div>
+
+                <div class="required-fields">
+                    <h4>⚙️ Etapa 3: Configuração de Conta</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Email</div>
+                        <div class="field-item">Senha</div>
+                        <div class="field-item">Tipo de Perfil</div>
+                        <div class="field-item">Empresa (apenas Master)</div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <strong>💡 Dica:</strong> Campos além desses são OPCIONAIS, porém podem ser preenchidos também.
+                </div>
+
+                <h2>Requisitos da Senha</h2>
+                <div class="warning-card">
+                    A senha deverá ter as seguintes regras aplicadas:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>✓ Mínimo de <strong>8 caracteres</strong></li>
+                        <li>✓ Pelo menos <strong>uma letra maiúscula</strong> e <strong>um número</strong></li>
+                        <li>✓ <strong>Não pode ter</strong> todos os caracteres iguais (ex: "aaaaaaaaaa")</li>
+                        <li>✓ <strong>Não pode ser</strong> uma sequência comum (ex: "12345678")</li>
+                    </ul>
+                </div>
+
+                <h2>Tipos de Perfil</h2>
+                <p style="margin-bottom: 1.5rem;">Entenda cada tipo de perfil disponível no sistema:</p>
+
+                <div class="required-fields" style="background-color: #f0f9ff;">
+                    <h4>👑 Master</h4>
+                    <p style="margin: 0.5rem 0;">
+                        <strong>Apenas 4 usuários podem ter esse tipo de perfil.</strong> Um usuário comum NÃO PODE ter esse tipo de perfil, 
+                        pois esse tipo de perfil possui acesso ao sistema INTEIRO. Usuários master possuem acesso a tudo e todos os dados 
+                        de todas as empresas. Ele pode criar, editar, ver e excluir TUDO.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #dbeafe;">
+                    <h4>🔑 Administrador</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Este título deve ser entregue para os responsáveis pelo sistema da empresa. Os responsáveis têm acesso às telas 
+                        de cadastro de usuários, permissões, documentos e dashboards. Ele pode mudar os dados de todos os funcionários 
+                        da empresa dele e ver todos esses mesmos dados. Pode excluir usuários dessa empresa.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #e0e7ff;">
+                    <h4>👤 Colaborador</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Este usuário só pode editar os próprios dados na tela. Ele tem permissão de acessar a tela de cadastro de usuário 
+                        e ver os próprios dados, mas não pode criar usuários, não pode editar dados de nenhum outro usuário, não pode ver 
+                        os dados de nenhum outro usuário e não pode deletar nada. Na tela de documentos, ele pode apenas ver e baixar 
+                        alguns dados apenas se for permitido a ele na tela de permissões.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #ecfdf5;">
+                    <h4>🔍 Auditor</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Este usuário apenas tem acesso a ver os dados e não pode editar nada. Exceto quando for permitido a ele por meio 
+                        da tela de permissões.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #f5f3ff;">
+                    <h4>🚪 Convidado</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Não tem acesso a tela de cadastros. Não possui acesso a nada. Ele só poderá fazer algo caso seja permitido através 
+                        da tela de permissões.
+                    </p>
+                </div>
+
+                <h2>Visualizar dados do usuário</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">👁️</span> Botão Visualizar</h4>
+                        <p>Clique no botão com símbolo de olho (cinza) no canto direito do grid. 
+                        Os campos ficarão desabilitados para edição.</p>
+                    </div>
+                </div>
+
+                <h2>Editar dados do usuário</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">✏️</span> Botão Editar</h4>
+                        <p>Clique no botão azul com lápis e papel no grid. Você pode ver e editar os dados do usuário conforme quiser. 
+                        Ao editar, o campo senha vem limpo. Apenas escreva lá dentro se quiser alterar a senha. Se não, deixe em branco 
+                        e o sistema não irá mudar a senha.</p>
+                    </div>
+                </div>
+
+                <h2>Excluir dados do usuário</h2>
+                <div class="danger-card">
+                    <strong>⚠️ ATENÇÃO!</strong><br>
+                    Para excluir os dados de um usuário, clique no botão em vermelho com lixeira. 
+                    Ao clicar, uma tela pedirá confirmação. <br><br>
+                    <strong style="color: #991b1b;">CUIDADO:</strong> Ao excluir um usuário, todos os seus dados serão deletados. 
+                    Tome muito cuidado ao fazer essa ação!
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('permissoes')">
+                        Próximo: Permissões →
+                    </button>
+                </div>
+            </section>
+
+            <section id="permissoes" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Permissões
+                </div>
+
+                <h1>🔐 Permissões de Usuários</h1>
+
+                <h2>Para que serve?</h2>
+                <div class="info-card">
+                    Esta tela será utilizada para dar permissões extras aos usuários padrões. Ou seja, caso o administrador quiser, 
+                    dar uma permissão extra a um colaborador, ele pode apenas ir nessa tela e dar as permissões extras ao usuário.
+                </div>
+
+                <h2>Onde ela fica?</h2>
+                <div class="success-card">
+                    A Tela de Permissões fica na aba de <strong>Cadastro</strong> do menu lateral.
+                </div>
+
+                <h2>O que tem na tela de permissões?</h2>
+                <div class="info-card">
+                    A tela de permissões possui:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔍 Filtro na parte superior para buscar usuários</li>
+                        <li>📊 Grid com check-box para marcação das permissões</li>
+                        <li>⚡ Permissões padrões (desabilitadas - não podem ser alteradas)</li>
+                        <li>✨ Permissões extras (habilitadas - podem ser alteradas)</li>
+                    </ul>
+                </div>
+
+                <h2>Permissões Padrões</h2>
+                <div class="warning-card">
+                    <strong>⚠️ Importante:</strong> Permissões padrões NÃO PODEM ser alteradas, então elas são desabilitadas e ninguém 
+                    pode mudar isso. As permissões padrões são aquelas que já vêm associadas ao tipo de perfil do usuário.
+                </div>
+
+                <h2>Como funciona</h2>
+                <div class="info-card">
+                    <strong>Fluxo de Permissões:</strong>
+                    <ol style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Cada tipo de perfil (Master, Administrador, Colaborador, Auditor, Convidado) possui permissões padrões</li>
+                        <li>Essas permissões padrões aparecem <strong>desabilitadas</strong> na tela</li>
+                        <li>Você pode adicionar <strong>permissões extras</strong> ao usuário através dos check-box habilitados</li>
+                        <li>Essas permissões extras complementam as permissões padrões do perfil</li>
+                        <li>Todas as mudanças são salvas automaticamente</li>
+                    </ol>
+                </div>
+
+                <h2>Exemplos de Permissões Extras</h2>
+                <p style="margin-bottom: 1.5rem;">Alguns exemplos de permissões extras que podem ser concedidas:</p>
+
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">📄</span> Acessar Documentos</h4>
+                        <p>Permite ao usuário visualizar e baixar documentos específicos mesmo com perfil restrito</p>
+                    </div>
+                    <div class="action-item">
+                        <h4><span class="icon">✏️</span> Editar Documentos</h4>
+                        <p>Permite ao usuário editar documentos cadastrados no sistema</p>
+                    </div>
+                    <div class="action-item">
+                        <h4><span class="icon">📊</span> Ver Dashboards</h4>
+                        <p>Permite ao usuário acessar e visualizar relatórios e gráficos</p>
+                    </div>
+                    <div class="action-item">
+                        <h4><span class="icon">☑️</span> Gerenciar Checklists</h4>
+                        <p>Permite ao usuário criar e gerenciar tarefas e checklists</p>
+                    </div>
+                    <div class="action-item">
+                        <h4><span class="icon">👥</span> Criar Usuários</h4>
+                        <p>Permite ao usuário criar novos usuários na empresa</p>
+                    </div>
+                    <div class="action-item">
+                        <h4><span class="icon">🗑️</span> Deletar Dados</h4>
+                        <p>Permite ao usuário deletar documentos, usuários ou outras informações</p>
+                    </div>
+                </div>
+
+                <h2>Como conceder permissões extras</h2>
+                <ol class="step-list">
+                    <li>Acesse a tela de <strong>Permissões</strong> no menu lateral</li>
+                    <li>Use o filtro superior para buscar o usuário desejado</li>
+                    <li>Localize o usuário na lista</li>
+                    <li>Marque os check-box das permissões extras que deseja conceder</li>
+                    <li>Desmarque se quiser remover uma permissão extra</li>
+                    <li>As mudanças são salvas automaticamente</li>
+                </ol>
+
+                <h2>Dicas Importantes</h2>
+                <div class="info-card">
+                    <strong>💡 Dicas Úteis:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔒 As permissões padrões aparecem <strong>desabilitadas (cinzas)</strong> - não tente alterá-las</li>
+                        <li>✅ As permissões extras aparecem <strong>habilitadas (azuis)</strong> - você pode alterá-las à vontade</li>
+                        <li>⚡ Seja cuidadoso ao conceder muitas permissões para um usuário</li>
+                        <li>🔍 Você pode buscar um usuário específico para mudar suas permissões</li>
+                        <li>📋 Sempre revise as permissões concedidas regularmente</li>
+                    </ul>
+                </div>
+
+                <h2>Casos de Uso Comuns</h2>
+                <div class="required-fields">
+                    <h4>📌 Colaborador que precisa acessar documentos</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Um colaborador normalmente não tem acesso a documentos. Para permitir que ele veja certos documentos, 
+                        você concede a permissão extra "Acessar Documentos" para ele na tela de permissões.
+                    </p>
+                </div>
+
+                <div class="required-fields">
+                    <h4>📌 Auditor que precisa editar informações</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Um auditor normalmente só pode visualizar dados. Se ele precisar editar algo específico, 
+                        você concede a permissão extra "Editar Documentos" para ele.
+                    </p>
+                </div>
+
+                <div class="required-fields">
+                    <h4>📌 Convidado com acesso limitado</h4>
+                    <p style="margin: 0.5rem 0;">
+                        Um convidado normalmente não tem acesso a nada. Você pode conceder apenas as permissões específicas 
+                        que ele precisa, como "Ver Dashboards" ou "Acessar Documentos".
+                    </p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('documentos')">
+                        Próximo: Documentos →
+                    </button>
+                </div>
+            </section>
+
+            <section id="documentos" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Documentos
+                </div>
+
+                <h1>📄 Documentos</h1>
+
+                <h2>Para que serve?</h2>
+                <div class="info-card">
+                    Serve para armazenar e criar documentos, bem como notas fiscais e quaisquer outros tipos de arquivos. 
+                    É um repositório centralizado onde toda a documentação importante da empresa pode ser guardada e gerenciada.
+                </div>
+
+                <h2>Onde ela fica?</h2>
+                <div class="success-card">
+                    A Tela de Documentos fica no menu lateral abaixo de <strong>Dashboard</strong>.
+                </div>
+
+                <h2>O que tem na tela de documentos?</h2>
+                <div class="info-card">
+                    A tela de documentos possui:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔍 Filtros na parte superior</li>
+                        <li>➕ Botão de cadastro</li>
+                        <li>📊 Grid com dados dos documentos</li>
+                        <li>⚡ Ações: visualizar, editar, aprovar, baixar e excluir</li>
+                    </ul>
+                </div>
+
+                <h2>Como cadastrar um novo documento</h2>
+                <ol class="step-list">
+                    <li>Clique em <strong>Documentos</strong> (no menu lateral)</li>
+                    <li>Clique no botão <strong>"Novo Documento"</strong></li>
+                    <li>Preencha os campos obrigatórios</li>
+                    <li>Mude de etapa nos botões disponíveis</li>
+                    <li>Ao chegar na última etapa, clique no botão <strong>"Salvar Documento"</strong></li>
+                </ol>
+
+                <h2>Campos obrigatórios</h2>
+                
+                <div class="required-fields">
+                    <h4>📋 Etapa 1: Dados do Documento</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Código</div>
+                        <div class="field-item">Nome do Documento</div>
+                    </div>
+                </div>
+
+                <h2>Etapa 2: Gerenciar Arquivos</h2>
+                <div class="info-card">
+                    <strong>📁 Como adicionar arquivos:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Clique no campo para selecionar os documentos</li>
+                        <li>OU arraste os documentos até o campo para colocar os arquivos desejados</li>
+                        <li>Abaixo do campo irá aparecer uma lista com o nome do documento, seu tamanho e um "x" para excluir</li>
+                    </ul>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚠️ Limitações de Arquivos:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>📊 Máximo de <strong>5 arquivos</strong> por cadastro</li>
+                        <li>📦 Tamanho máximo de <strong>5MB</strong> por arquivo</li>
+                        <li>📝 Tipos permitidos: <code>.pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt, .csv, .jpg, .jpeg, .png, .webp</code></li>
+                        <li>❌ Arquivos de outro tipo são rejeitados automaticamente com aviso no canto superior</li>
+                    </ul>
+                </div>
+
+                <h2>Etapa 3: Checklists</h2>
+                <div class="info-card">
+                    <strong>☑️ O que você vê:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Nesta etapa é possível visualizar quais checklists estão linkadas com o documento</li>
+                        <li>Você pode ver o nome de cada checklist</li>
+                        <li>Você pode acompanhar o status atual de cada checklist linkada</li>
+                    </ul>
+                </div>
+
+                <h2>Etapa 4: Complementares</h2>
+                <div class="info-card">
+                    <strong>📌 Campos disponíveis:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🟢 <strong>Status:</strong> Mostra o status atual do documento (Pendente, Aprovado, Reprovado)</li>
+                        <li>💬 <strong>Motivo:</strong> Caixa de texto que mostra o motivo de um documento ter sido reprovado</li>
+                        <li>👤 <strong>Quem reprovou:</strong> Nome do usuário que reprovou o documento</li>
+                    </ul>
+                </div>
+
+                <h2>Visualizar dados do documento</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">👁️</span> Botão Visualizar</h4>
+                        <p>Clique no botão com símbolo de olho (cinza) no canto direito do grid. 
+                        Os campos ficarão desabilitados para edição.</p>
+                    </div>
+                </div>
+
+                <h2>Editar dados do documento</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">✏️</span> Botão Editar</h4>
+                        <p>Clique no botão azul com lápis e papel no grid. Você pode ver e editar os dados do documento conforme quiser. 
+                        <strong>Importante:</strong> Ao editar um documento, se houver usuários na lista de aprovação, o status do documento 
+                        muda para pendente novamente, independente se foi aprovado ou reprovado.</p>
+                    </div>
+                </div>
+
+                <h2>Excluir dados do documento</h2>
+                <div class="danger-card">
+                    <strong>⚠️ ATENÇÃO!</strong><br>
+                    Para excluir os dados de um documento, clique no botão em vermelho com lixeira. 
+                    Ao clicar, uma tela pedirá confirmação. <br><br>
+                    <strong style="color: #991b1b;">CUIDADO:</strong> Ao excluir um documento, todos os seus dados e arquivos 
+                    serão deletados permanentemente. Tome muito cuidado ao fazer essa ação!
+                </div>
+
+                <h2>Aprovar um documento</h2>
+                <div class="info-card">
+                    <strong>🔄 Fluxo de Aprovação:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Quando um usuário cria um documento e coloca usuários na <strong>lista de aprovadores</strong>, 
+                        o status muda para <strong>"Documento Pendente"</strong></li>
+                        <li>O documento só será mostrado aos usuários que pertencerem à lista selecionada</li>
+                        <li>Esses usuários verão um botão de cor <strong>amarela com um martelo</strong></li>
+                    </ul>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚡ Processo de Aprovação:</strong>
+                    <ol style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Clique no botão amarelo com martelo para abrir a tela de aprovação</li>
+                        <li>Uma pequena tela aparecerá com o nome do documento</li>
+                        <li>Você verá 2 botões grandes: <strong style="color: #10b981;">APROVAR (verde)</strong> e <strong style="color: #ef4444;">REPROVAR (vermelho)</strong></li>
+                    </ol>
+                </div>
+
+                <div class="success-card">
+                    <strong>✅ Se você clicar em APROVAR:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Clique em "APROVAR" e depois em "Concluir"</li>
+                        <li>Sua parte estará feita</li>
+                        <li><strong>Se tiver mais de 1 usuário</strong> na lista, o status continuará pendente até todos aprovarem</li>
+                        <li><strong>Se for o último</strong> a aprovar, o status muda para "Concluído"</li>
+                    </ul>
+                </div>
+
+                <div class="danger-card">
+                    <strong>❌ Se você clicar em REPROVAR:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Uma caixa de texto aparecerá obrigando a informar um motivo</li>
+                        <li>Escreva o motivo pelo qual está reprovando o documento</li>
+                        <li>O status do documento muda imediatamente para "Reprovado"</li>
+                        <li>O documento não precisa de aprovação dos outros usuários</li>
+                        <li>O motivo da reprovação fica visível na etapa "Complementares"</li>
+                    </ul>
+                </div>
+
+                <h2>Baixar os arquivos</h2>
+                <div class="success-card">
+                    <strong>⬇️ Como baixar:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Se o usuário inseriu arquivos em seu documento, no grid aparecerá um botão de cor <strong>verde com símbolo de download</strong></li>
+                        <li>Ao clicar, uma tela exibe todos os arquivos do documento</li>
+                        <li>Você verá o nome de cada arquivo e ao lado um botão para <strong>baixar o arquivo individual</strong></li>
+                        <li>Abaixo de todos os arquivos tem um botão <strong>azul grande</strong> que <strong>baixa todos os arquivos de uma vez</strong></li>
+                        <li>Quando baixa todos, os arquivos vêm em uma <strong>pasta zip compactada</strong></li>
+                    </ul>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('checklists')">
+                        Próximo: Checklists →
+                    </button>
+                </div>
+            </section>
+
+            <section id="checklists" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Checklists
+                </div>
+
+                <h1>☑️ Checklists</h1>
+
+                <h2>Para que serve?</h2>
+                <div class="info-card">
+                    Ela serve para criar e organizar tarefas do dia a dia de uma empresa. É uma ferramenta para acompanhar 
+                    atividades, garantir que procedimentos sejam seguidos e manter um registro de todas as ações executadas.
+                </div>
+
+                <h2>Onde ela fica?</h2>
+                <div class="success-card">
+                    A Tela de Checklist fica no menu lateral abaixo de <strong>Agendamentos</strong>.
+                </div>
+
+                <h2>O que tem na tela de Checklist?</h2>
+                <div class="info-card">
+                    A tela de Checklists possui:
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔍 Filtros na parte superior</li>
+                        <li>➕ Botão de cadastro</li>
+                        <li>📊 Grid com dados das checklists</li>
+                        <li>⚡ Ações: visualizar, editar, aprovar e excluir</li>
+                    </ul>
+                </div>
+
+                <h2>Como cadastrar uma nova Checklist</h2>
+                <ol class="step-list">
+                    <li>Clique em <strong>Checklist</strong> (no menu lateral)</li>
+                    <li>Clique no botão <strong>"Nova Checklist"</strong></li>
+                    <li>Preencha os campos obrigatórios</li>
+                    <li>Mude de etapa nos botões disponíveis</li>
+                    <li>Ao chegar na última etapa, clique no botão <strong>"Salvar Checklist"</strong></li>
+                </ol>
+
+                <h2>Campos obrigatórios</h2>
+                
+                <div class="required-fields">
+                    <h4>📋 Etapa 1: Dados da Checklist</h4>
+                    <div class="fields-grid">
+                        <div class="field-item">Código</div>
+                        <div class="field-item">Título</div>
+                    </div>
+                </div>
+
+                <h2>Etapa 2: Perguntas</h2>
+                <div class="info-card">
+                    <strong>❓ Como adicionar perguntas:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Por padrão, vem uma pergunta obrigatória já criada</li>
+                        <li>Você pode editar a pergunta padrão</li>
+                        <li>Clique no botão <strong>"Adicionar Pergunta"</strong> para criar novas perguntas</li>
+                        <li>Digite a pergunta e configure as respostas</li>
+                        <li>Cada pergunta possui 3 campos para resposta (Ex: Sim, Não, Parcialmente)</li>
+                    </ul>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚠️ Importante sobre respostas:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Ao clicar em <strong>reprovar</strong> uma pergunta, é obrigatório informar um motivo</li>
+                        <li>O campo de motivo aparecerá automaticamente quando você selecionar "reprovar"</li>
+                        <li>O motivo da reprovação fica registrado para auditoria</li>
+                    </ul>
+                </div>
+
+                <h2>Etapa 3: Documentos</h2>
+                <div class="info-card">
+                    <strong>📄 Como linkear documentos:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Nesta etapa você verá 2 listas de documentos</li>
+                        <li>A lista da esquerda mostra <strong>documentos disponíveis</strong></li>
+                        <li>A lista da direita mostra <strong>documentos selecionados</strong></li>
+                        <li>Clique em um documento para selecioná-lo e adicionar à checklist</li>
+                        <li>Clique novamente para desselecionar e remover da checklist</li>
+                    </ul>
+                </div>
+
+                <h2>Visualizar dados da Checklist</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">👁️</span> Botão Visualizar</h4>
+                        <p>Clique no botão com símbolo de olho (cinza) no canto direito do grid. 
+                        Os campos ficarão desabilitados para edição.</p>
+                    </div>
+                </div>
+
+                <h2>Editar dados da Checklist</h2>
+                <div class="action-list">
+                    <div class="action-item">
+                        <h4><span class="icon">✏️</span> Botão Editar</h4>
+                        <p>Clique no botão azul com lápis e papel no grid. Você pode ver e editar os dados da checklist conforme quiser, 
+                        incluindo perguntas e documentos linkados.</p>
+                    </div>
+                </div>
+
+                <h2>Excluir dados da Checklist</h2>
+                <div class="danger-card">
+                    <strong>⚠️ ATENÇÃO!</strong><br>
+                    Para excluir os dados de uma checklist, clique no botão em vermelho com lixeira. 
+                    Ao clicar, uma tela pedirá confirmação. <br><br>
+                    <strong style="color: #991b1b;">CUIDADO:</strong> Ao excluir uma checklist, todos os seus dados, 
+                    perguntas e linkagens serão deletados permanentemente. Tome muito cuidado ao fazer essa ação!
+                </div>
+
+                <h2>Aprovar uma Checklist</h2>
+                <div class="info-card">
+                    <strong>🔄 Fluxo de Aprovação:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Para aprovar uma checklist, clique no botão <strong>amarelo com martelo</strong> no grid</li>
+                        <li>Uma tela aparecerá com:</li>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li>❓ Todas as perguntas da checklist (NÃO podem ser alteradas)</li>
+                            <li>📄 Lista de documentos que foram selecionados</li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚡ Pré-requisito para Aprovação:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Para aprover uma checklist, <strong>todos os documentos linkados</strong> devem estar em um dos status:</li>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li>🟢 <strong>"Para Todos"</strong> (documento disponível para todos)</li>
+                            <li>✅ <strong>"Aprovados"</strong> (documento foi aprovado)</li>
+                        </ul>
+                        <li>Se algum documento estiver em outro status, <strong>você NÃO pode aprovar</strong></li>
+                        <li>Você apenas poderá reprovar neste caso</li>
+                    </ul>
+                </div>
+
+                <div class="success-card">
+                    <strong>✅ Se você clicar em APROVAR:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Verifique se todos os documentos estão com status "Para Todos" ou "Aprovados"</li>
+                        <li>Se sim, clique em "APROVAR"</li>
+                        <li>Clique em "Concluir" para finalizar</li>
+                        <li>A checklist terá status "Aprovada"</li>
+                    </ul>
+                </div>
+
+                <div class="danger-card">
+                    <strong>❌ Se você clicar em REPROVAR:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Uma caixa de texto aparecerá obrigando a informar um motivo</li>
+                        <li>Escreva o motivo pelo qual está reprovando a checklist</li>
+                        <li>O motivo pode estar relacionado ao status dos documentos ou às respostas das perguntas</li>
+                        <li>A checklist terá status "Reprovada"</li>
+                    </ul>
+                </div>
+
+                <h2>Status de uma Checklist</h2>
+                <div class="required-fields">
+                    <h4>🟡 Pendente</h4>
+                    <p style="margin: 0.5rem 0;">
+                        A checklist foi criada mas ainda não foi aprovada. Aguardando revisão dos documentos e respostas.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #d1fae5;">
+                    <h4>🟢 Aprovada</h4>
+                    <p style="margin: 0.5rem 0;">
+                        A checklist foi aprovada. Todos os documentos estavam no status correto e as respostas foram validadas.
+                    </p>
+                </div>
+
+                <div class="required-fields" style="background-color: #fee2e2;">
+                    <h4>🔴 Reprovada</h4>
+                    <p style="margin: 0.5rem 0;">
+                        A checklist foi reprovada. Há um motivo registrado que pode ser visto na tela de detalhes.
+                    </p>
+                </div>
+
+                <h2>Dicas Importantes</h2>
+                <div class="info-card">
+                    <strong>💡 Dicas Úteis:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>📋 Crie checklists descritivas com títulos claros</li>
+                        <li>❓ Adicione perguntas específicas e relevantes para o processo</li>
+                        <li>📄 Sempre vincule os documentos necessários para a checklist</li>
+                        <li>✅ Revise o status dos documentos antes de aprovar uma checklist</li>
+                        <li>💬 Sempre registre motivos detalhados ao reprovar</li>
+                        <li>📊 Use checklists para padronizar processos na empresa</li>
+                    </ul>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('extras')">
+                        Próximo: Extras →
+                    </button>
+                </div>
+            </section>
+
+            <section id="extras" class="section">
+                <div class="breadcrumb">
+                    <a onclick="showSection('home')">Início</a> / Extras
+                </div>
+
+                <h1>⚙️ Recursos Adicionais</h1>
+
+                <h2>Menu Superior</h2>
+                <div class="info-card">
+                    <strong>🔝 O que você encontra no menu superior:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🚪 <strong>Botão de Deslogar:</strong> Realiza o logout do sistema. Clique para sair da sua conta.</li>
+                        <li>👤 <strong>Ícone de Perfil:</strong> Clique para acessar seus dados pessoais e editar seu perfil.</li>
+                        <li>⚙️ <strong>Botão de Configurações:</strong> Acesse as preferências e configurações da sua conta.</li>
+                    </ul>
+                </div>
+
+                <h2>Dashboard</h2>
+                <div class="success-card">
+                    <strong>📊 O que é o Dashboard:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>É a tela inicial que você vê ao entrar no sistema</li>
+                        <li>Fornece uma visão geral rápida do status da empresa</li>
+                        <li>Mostra números e estatísticas importantes</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <strong>📈 Informações disponíveis no Dashboard:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>📊 <strong>Número total de documentos</strong> cadastrados na empresa</li>
+                        <li>📈 <strong>Gráficos informativos</strong> mostrando:</li>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li>Quantos documentos estão em status "Pendente"</li>
+                            <li>Quantos documentos estão "Aprovados"</li>
+                            <li>Quantos documentos foram "Reprovados"</li>
+                        </ul>
+                        <li>🎯 Esses dados ajudam no acompanhamento e controle</li>
+                    </ul>
+                </div>
+
+                <h2>Editar Perfil</h2>
+                <div class="info-card">
+                    <strong>👤 Como acessar e editar seu perfil:</strong>
+                    <ol style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Clique no <strong>ícone de perfil</strong> no menu superior</li>
+                        <li>Você será redirecionado para a tela de edição de perfil</li>
+                        <li>Aqui você pode alterar seus dados pessoais</li>
+                        <li>Você pode mudar seu endereço, telefone, email, etc.</li>
+                        <li>Clique em <strong>"Salvar"</strong> para confirmar as alterações</li>
+                    </ol>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚠️ Importante sobre o perfil:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Colaboradores só podem editar seus <strong>próprios dados</strong></li>
+                        <li>Não podem editar dados de outros usuários</li>
+                        <li>Administradores podem editar dados de todos os usuários da empresa</li>
+                        <li>Masters podem editar dados de qualquer usuário do sistema</li>
+                    </ul>
+                </div>
+
+                <h2>Esqueceu a Senha?</h2>
+                <div class="warning-card">
+                    <strong>🔐 Não se preocupe! Você tem 2 opções:</strong>
+                </div>
+
+                <h3>Opção 1: Pedir ao Administrador</h3>
+                <div class="info-card">
+                    <strong>📞 Como funciona:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Entre em contato com o usuário administrador da sua empresa</li>
+                        <li>Peça para ele alterar sua senha</li>
+                        <li>Ele terá acesso para mudar sua senha sem precisar da antiga</li>
+                        <li>Você receberá a nova senha e poderá fazer login novamente</li>
+                    </ul>
+                </div>
+
+                <h3>Opção 2: Recuperação por Email</h3>
+                <div class="success-card">
+                    <strong>📧 Passo a passo para recuperar a senha:</strong>
+                </div>
+
+                <ol class="step-list">
+                    <li>Na tela de login, clique em <strong>"Esqueci minha senha"</strong></li>
+                    <li>Você será redirecionado para a tela de recuperação</li>
+                    <li>Informe o <strong>Email</strong> associado à sua conta</li>
+                    <li>Clique em <strong>"Continuar"</strong></li>
+                    <li>Um código de <strong>6 dígitos</strong> será enviado para seu email</li>
+                    <li>Volte para a tela e informe o código que recebeu</li>
+                    <li>Clique em <strong>"Continuar"</strong> novamente</li>
+                    <li>Você será redirecionado para a tela de nova senha</li>
+                    <li>Informe a <strong>nova senha</strong> que deseja usar</li>
+                    <li>Confirme a <strong>nova senha</strong> repetindo</li>
+                    <li>Clique em <strong>"Salvar"</strong></li>
+                    <li>Pronto! Sua senha foi alterada com sucesso</li>
+                    <li>Você agora terá acesso novamente ao seu sistema</li>
+                </ol>
+
+                <div class="info-card">
+                    <strong>💡 Dicas sobre recuperação de senha:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>✓ O código de 6 dígitos é temporário e expira em <strong>15 minutos</strong></li>
+                        <li>✓ Confirme o código rapidamente antes que expire</li>
+                        <li>✓ A nova senha deve seguir as mesmas regras de segurança</li>
+                        <li>✓ Escolha uma senha forte e difícil de adivinhar</li>
+                        <li>✓ Não compartilhe sua senha com ninguém</li>
+                    </ul>
+                </div>
+
+                <h2>Requisitos de Senha</h2>
+                <div class="warning-card">
+                    <strong>🔐 Sua nova senha deve atender a esses requisitos:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>✓ Mínimo de <strong>8 caracteres</strong></li>
+                        <li>✓ Pelo menos <strong>uma letra maiúscula</strong> (A-Z)</li>
+                        <li>✓ Pelo menos <strong>um número</strong> (0-9)</li>
+                        <li>✓ <strong>Não pode ter</strong> todos os caracteres iguais (ex: "aaaaaaaaaa")</li>
+                        <li>✓ <strong>Não pode ser</strong> uma sequência comum (ex: "12345678")</li>
+                    </ul>
+                </div>
+
+                <h2>Exemplos de Senhas Válidas</h2>
+                <div class="success-card">
+                    <strong>✅ Exemplos de senhas que funcionam:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>Senha@123</li>
+                        <li>MeuSistema456</li>
+                        <li>Audithor2024!</li>
+                        <li>NovaTek#789</li>
+                        <li>Segurança@2025</li>
+                    </ul>
+                </div>
+
+                <h2>Exemplos de Senhas Inválidas</h2>
+                <div class="danger-card">
+                    <strong>❌ Exemplos de senhas que NÃO funcionam:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>aaaaaaaa (todos os caracteres iguais)</li>
+                        <li>12345678 (sequência comum)</li>
+                        <li>senha123 (sem letra maiúscula)</li>
+                        <li>Senha (sem números)</li>
+                        <li>Pass (menos de 8 caracteres)</li>
+                        <li>abcdefgh (sem letra maiúscula ou número)</li>
+                    </ul>
+                </div>
+
+                <h2>Boas Práticas de Segurança</h2>
+                <div class="info-card">
+                    <strong>🛡️ Dicas para manter sua conta segura:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🔐 Use senhas <strong>fortes e únicas</strong> para cada conta</li>
+                        <li>🔄 Troque sua senha <strong>regularmente</strong> (a cada 3 meses)</li>
+                        <li>🚫 Nunca compartilhe sua senha com colegas</li>
+                        <li>💻 Faça logout ao terminar de usar o sistema em computadores públicos</li>
+                        <li>⏱️ Se ficar inativo por muito tempo, será desconectado automaticamente</li>
+                        <li>📧 Mantenha seu email atualizado para recuperação de senha</li>
+                        <li>🔔 Notifique um administrador se suspeitar de acesso não autorizado</li>
+                    </ul>
+                </div>
+
+                <h2>Precisa de Ajuda?</h2>
+                <div class="info-card">
+                    <strong>📞 Como obter suporte:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>🤝 Entre em contato com o <strong>administrador da sua empresa</strong></li>
+                        <li>📧 Envie um email para o suporte da NovaTek</li>
+                        <li>📞 Ligue para o telefone de suporte</li>
+                        <li>💬 Utilize a seção de dúvidas frequentes (FAQ) se disponível</li>
+                    </ul>
+                </div>
+
+                <h2>Resumo Rápido</h2>
+                <div class="success-card">
+                    <strong>📋 Guia rápido do sistema Audithor:</strong>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+                        <li>✓ <strong>Cadastro de Empresa:</strong> Gerencie empresas (Masters apenas)</li>
+                        <li>✓ <strong>Cadastro de Usuários:</strong> Crie e administre usuários</li>
+                        <li>✓ <strong>Permissões:</strong> Dê permissões extras aos usuários</li>
+                        <li>✓ <strong>Documentos:</strong> Armazene e gerencie documentos com aprovação</li>
+                        <li>✓ <strong>Checklists:</strong> Crie tarefas e procedimentos padronizados</li>
+                        <li>✓ <strong>Dashboard:</strong> Visualize estatísticas e números importantes</li>
+                    </ul>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showSection('home')">
+                        ← Voltar ao Início
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Central de Ajuda Audithor - NovaTek. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Show/Hide Sections
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.querySelector(`[data-section="${sectionId}"]`)?.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Add click handlers to sidebar navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+                showSection(sectionId);
+            });
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const query = e.target.value.toLowerCase();
+            
+            if (query.length < 2) {
+                return;
+            }
+
+            const sections = document.querySelectorAll('.section');
+            let found = false;
+
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    section.classList.add('active');
+                    sections.forEach(s => {
+                        if (s !== section) s.classList.remove('active');
+                    });
+                    found = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
